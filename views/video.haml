@@ -1,0 +1,12 @@
+- @youtube.each do |id|
+  %div.container.justify-content-md-center
+    %div.card
+      %div.card-body
+        %div.embed-responsive.embed-responsive-4by3{:id=>id}
+          %iframe.embed-responsive-item{:src=>"https://www.youtube.com/embed/#{id}", :allowfullscreen=>"allowfullscreen"}
+- @vimeo.each do |id|
+  %div.container.justify-content-md-center
+    %div.card
+      %div.card-body
+        %div.embed-responsive.embed-responsive-4by3{:id=>id}
+          %iframe.embed-responsive-item{:src=>"https://player.vimeo.com/video/#{id}", :allowfullscreen=>"allowfullscreen"}

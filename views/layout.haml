@@ -1,0 +1,95 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}
+  %head
+    %meta{'charset'=>"utf-8"}
+    %meta{'http-equiv'=>"X-UA-Compatible", :content=>"IE=edge"}
+    %meta{'name'=>"viewport", :content=>"width=device-width, initial-scale=1"}
+    %title Alfadeo
+    %link{:rel=>'icon', :type=>'image/x-icon', :href=>''}
+    %link{:href=>"/stylesheets/bootstrap.min.css", :rel=>"stylesheet"}
+    %link{:href=>"/stylesheets/font-awesome.min.css", :rel=>"stylesheet"}
+    %link{:href=>"/style.css", :rel=>"stylesheet"}
+    %script{ :src=>"/javascripts/jquery.min.js"}
+    %script{ :src=>"/javascripts/popper.min.js"}
+    %script{ :src=>"/javascripts/bootstrap.js"}
+  %body
+    %noscript
+      %div{ :style=>"width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif"}
+      Your web browser must have JavaScript enabled in order for this application to display correctly.
+    %nav.navbar.navbar-expand-lg.navbar-dark.flex-column.flex-md-row.bg-dark
+      %a.navbar-brand{ :href => "/about" }
+        %img.rounded{:src=>"/images/ad_logo_web.jpg", :alt=>"logo", :width=>"100px", :heigth=>"100px"}
+      %button.navbar-toggler{:type=>"button", :data=>{:toggle=>"collapse", :target=>"#navbarSupportedContent"}, :aria=>{:controls=>"navbarSupportedContent", :expanded=>"false", :label=>"Toggle navigation"}}
+        %span.navbar-toggler-icon
+      %div.collapse.navbar-collapse{:id=>"navbarSupportedContent"}
+        %ul.navbar-nav.mr-auto.text-monospace
+          %li.nav-item{:class=>("active" if /music/ =~ request.path)}
+            %a.h4.nav-link{ :href => "/music" } Music
+          %li.nav-item{:class=>("active" if /video/ =~ request.path)}
+            %a.h4.nav-link{ :href => "/video" } Video
+          %li.nav-item{:class=>("active" if /pics/ =~ request.path)}
+            %a.h4.nav-link{ :href => "/pics" } Pics
+          %li.nav-item{:class=>("active" if /merch/ =~ request.path)}
+            %a.h4.nav-link{ :href => "/merch" } Merch
+        -#%div.d-inline-flex
+          %a.nav-link.text-light{:href=>"https://twitter.com/intent/tweet?source=http%3A%2F%2Falfadeo.de&text=http%3A%2F%2Falfadeo.de", :rel=>"external", :title=>"Tweet"}
+            %span.fa.fa-2x.fa-twitter-square
+          %a.nav-link.text-light{:href=>"https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Falfadeo.de&title=&summary=&source=http%3A%2F%2Falfadeo.de", :rel=>"external", :title=>"Share on Facebook"}
+            %span.fa.fa-2x.fa-facebook-square
+    %div.container-fluid
+      = yield
+    
+    %footer
+      %div.container
+        %div.row
+          %div.col
+            %p.text-muted
+              &copy; 
+              Alfadeo.
+              This work is licensed under a
+              %a{:href => "http://creativecommons.org/licenses/by-sa/3.0/"}Creative Commons Attribution-Share Alike 3.0 Unported License
+
+    #back-top{:style => "z-index:100;position:fixed;bottom:1%;right:1%;"}
+      %a{:href => "", :style=>"text:decoration:none;color:#ccc;"}
+        %span.fa.fa-caret-up{:style => "font-size:3em;color:black;"}
+    :javascript
+      $(document).ready(function() {
+        addExternalLinks();
+      });
+
+      addExternalLinks = function() {
+        $('A[rel="external"]').each(function() {
+          $(this).attr('alt', 'Link opens in new window.');
+          $(this).attr('title', 'Link opens in new window.');
+          $(this).attr('target', '_blank');
+        });
+      };
+      $("#back-top").hide();
+      $(function () {
+        $(window).scroll(function () {
+          if ($(this).scrollTop() > 600) {
+            $('#back-top').fadeIn();
+          } else {
+            $('#back-top').fadeOut();
+          }
+        });
+        // scroll body to 0px on click
+        $('#back-top a').click(function () {
+          $('body,html').animate({
+            scrollTop: 0
+          }, 500);
+          return false;
+        });
+      });
+      $(document).ready(function(){
+        $("#back-top").hide();
+        $(".blind").on('error', function(){
+          $(this).attr('src', '/images/blind.png');
+        });
+      });
+      $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();
+        $('.modal').on('hidden.bs.modal', function () {
+          $(this).removeData('bs.modal');
+        });
+      });

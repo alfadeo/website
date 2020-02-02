@@ -1,0 +1,23 @@
+:javascript
+  function copyURL(u) {
+    var tempInput = document.createElement("Input");
+    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+    tempInput.value = u;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+  }
+
+%div.container
+  - @ids.each_slice(3) do |ids|
+    %div.card-deck
+      - ids.each do |id|
+        %div.card.mb-4{:id=>id}
+          %div.card-header
+            %div.btn-group.mr-2{:role=>"group", :aria=>{:label=>"buttons#{id}"}}
+              %button.btn.btn-secondary{:type=>"button", :onclick => "copyURL('#{to("/music##{id}")}');", :title => "copy to clipboard"}
+                %span.fa.fa-2x.fa-clipboard
+          %div.card-body
+                  
+            %iframe.embed-responsive-item{ :src=>"https://bandcamp.com/EmbeddedPlayer/album=#{id}/size=large/bgcol=ffffff/linkcol=0687f5/artwork=big/tracklist=true/transparent=true/", :style=>"border: 0px; width: auto; height: 522px;"}
